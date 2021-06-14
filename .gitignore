@@ -1,1 +1,7 @@
 .vscode
+.o
+.a
+MAX
+.docker*
+docker*
+Docker*
