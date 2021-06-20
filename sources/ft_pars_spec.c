@@ -81,14 +81,16 @@ static char	*check_width(char *ptr, t_spec *spec)
 		если ширины нет, то возвращвет ptr
 	*/
 	char	*start;
+	char	*end;
 
 	if (*ptr > '0' && *ptr <= '9')
 	{
 		start = ptr;
 		while (*ptr >= '0' && *ptr <= '9')
 			ptr++;
+		end = ptr;
 		spec->width = ft_atoi(start);
-		return (ptr);
+		return (end);
 	}
 	return (ptr);
 }
@@ -116,6 +118,8 @@ static char	*check_prec(char *ptr, t_spec *spec)
 	}
 	return (ptr);
 }
+
+
 
 char		*ft_parse_spec(char *ptr, t_spec *spec)
 {

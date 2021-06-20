@@ -4,7 +4,10 @@
 
 int	main()
 {
-	ft_printf("fds '%0-3c' 2 str: '%-.4c'\n", 't', 'a');
-	printf("\nfds '%0-3c' 2 str: '%-.4c'\n", 't', 'a');
+	printf("A: '");
+	ft_printf("%c", '0');
+	printf("' B: '");
+	printf("%c", '0');
+	printf("'");
 	return (0);
 }

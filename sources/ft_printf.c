@@ -2,6 +2,13 @@
 
 #include <stdio.h>
 
+static int	free_struct(t_spec *spec, int error)
+{
+	if (spec->final_str)
+		free(spec->final_str);
+	return (error * -1);
+}
+
 static void	init_struct(t_spec	*spec)
 {
 	spec->minus = 0;
@@ -23,13 +30,12 @@ static int	print_final_str(t_spec	*spec)
 	int	len;
 
 	if (spec->error)
-	{
-		free(spec->final_str);
-		return (-1);
-	}
+		return (free_struct(spec, 1));
+	if (!spec->final_str)
+		return (free_struct(spec, 1));
 	len = ft_strlen(spec->final_str);
-	ft_putstr_fd(spec->final_str, 0);
-	free(spec->final_str);
+	ft_putstr_fd(spec->final_str, 1);
+	free_struct(spec, 0);
 	return (len);
 }
 
@@ -56,8 +62,6 @@ static char	*find_pers(char *str, t_spec *spec)
 		spec->error = 1;
 		return (ptr);
 	}
-	if (!spec->final_str)
-		spec->final_str = (char *)malloc(sizeof(char) * 1);
 	old_str = spec->final_str;
 	new_str = ft_strjoin(spec->final_str, substr);
 	free(old_str);
@@ -77,6 +81,8 @@ int			ft_printf(const char *str, ...)
 	{
 		spec.error = 0;
 		spec.list_type = "cspdiuxX%nfge";
+		spec.final_str = (char *)malloc(sizeof(char) * 1);
+		*(spec.final_str) = '\0';
 		va_start(spec.ap, str);
 		ptr = (char *)str;
 		while(*ptr && !spec.error)

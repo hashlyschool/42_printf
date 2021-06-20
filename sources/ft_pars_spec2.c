@@ -11,7 +11,7 @@ char	*ft_check_size(char *ptr, t_spec *spec)
 	{
 		spec->size[0] = *ptr++;
 		if (*ptr == *(ptr - 1))
-			spec->size[1] = *ptr++;
+			spec->size[1] = *ptr;
 	}
 	return (ptr);
 }

@@ -24,17 +24,19 @@ B_SRCS_NAME	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 			ft_lstadd_back.c  ft_lstdelone.c ft_lstclear.c ft_lstiter.c \
 			ft_lstmap.c
 BONUS_SRCS	= $(addprefix $(SRCS_PATH), $(B_SRCS_NAME))
-BONUS_OBJS	= = $(addprefix $(OBJS_PATH), $(B_SRCS_NAME:.c=.o))
+BONUS_OBJS	= $(addprefix $(OBJS_PATH), $(B_SRCS_NAME:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS_PATH) $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 	ranlib $(NAME)
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
+	$(CC) -c $(FLAGS) $(INC) $< -o $@
+
+$(OBJS_PATH):
 	mkdir -p $(OBJS_PATH)
-	$(CC) -c $(FLAGS) $(INC) $< -o $@	
 
 clean:
 	$(RM) $(OBJS_PATH)
@@ -44,7 +46,8 @@ fclean:		clean
 
 re:			fclean all
 
-bonus:		$(OBJS) $(BONUS_OBJS)
+bonus:	$(OBJS_PATH) $(OBJS) $(BONUS_OBJS)
 	$(AR) $(NAME) $(OBJS) $(BONUS_OBJS)
+	ranlib $(NAME)
 
 .PHONY: all clean fclean re bonus

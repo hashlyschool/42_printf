@@ -20,7 +20,7 @@ void	ft_write_c(t_spec *spec)
 		free(spec->final_str);
 		spec->final_str = new_str;
 	}
-	if (!c || !new_str)
+	if (!c[0] || !new_str)
 		spec->error = 1;
 	return ;
 }
