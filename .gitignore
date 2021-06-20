@@ -1,7 +1,4 @@
-.vscode
-.o
-.a
-MAX
-.docker*
-docker*
-Docker*
+*.o
+*.a
+a.out
+.*
