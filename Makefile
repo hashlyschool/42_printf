@@ -1,8 +1,8 @@
 NAME		= libftprintf.a
 LIBFT		= ./libft/libft.a
-FLAGS		= #-Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror
 INC			= -I ./includes/
-CC			= gcc
+CC			= clang
 RM			= rm -rf
 AR			= ar -rcs
 
@@ -41,8 +41,7 @@ clean:
 	$(RM) $(OBJS_PATH)
 
 fclean:		clean
-	$(MAKE) fclean -C ./libft
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(LIBFT)
 
 bonus:	$(OBJS_PATH) $(OBJS) $(BONUS_OBJS)
 	$(MAKE) bonus -C ./libft

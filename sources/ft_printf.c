@@ -42,7 +42,7 @@ static int	print_final_str(t_spec	*spec)
 static char	*find_pers(char *str, t_spec *spec)
 {
 	/*
-		принимает указатель на начало, либо символ после % 
+		принимает указатель на начало, либо символ после %
 		записывает ошибку в случае нужды
 		записывает в final_str все до %
 		возвращает указатель на %+1 в исходной строке
@@ -69,6 +69,8 @@ static char	*find_pers(char *str, t_spec *spec)
 		spec->error = 1;
 	spec->final_str = new_str;
 	free(substr);
+	if (*ptr == '%')
+		ptr++;
 	return (ptr);
 }
 
@@ -89,9 +91,12 @@ int			ft_printf(const char *str, ...)
 		{
 			init_struct(&spec);
 			ptr = find_pers(ptr, &spec);
-			ptr = ft_parse_spec(ptr, &spec);
-			if (!spec.error)
-				ft_write_arg(&spec);
+			if (*(ptr - 1) == '%')
+			{
+				ptr = ft_parse_spec(ptr, &spec);
+				if (!spec.error)
+					ft_write_arg(&spec);
+			}
 		}
 		va_end(spec.ap);
 		return (print_final_str(&spec));

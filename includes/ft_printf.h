@@ -25,7 +25,6 @@ typedef	struct		s_spec
 	//type
 	//bonus_type
 	char	size[2]; //l ll h hh
-
 	char	type;
 	char	*list_type;
 	//error

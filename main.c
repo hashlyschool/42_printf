@@ -4,10 +4,13 @@
 
 int	main()
 {
-	printf("A: '");
-	ft_printf("%c", '0');
-	printf("' B: '");
-	printf("%c", '0');
-	printf("'");
+	setvbuf(stdout, NULL, _IONBF, 0);
+
+	printf("\n\noutput ft: '");
+	ft_printf("%10c", '0');
+	ft_printf("'\n\noutput origin: '");
+	printf("%10c", '0');
+	printf("'\n");
+
 	return (0);
 }
