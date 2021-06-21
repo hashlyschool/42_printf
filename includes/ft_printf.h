@@ -19,9 +19,10 @@ typedef	struct		s_spec
 	char	plus;
 	//width
 	int		width;
+	char	width_star;
 	//prec
-	char	star;
 	int		prec;
+	char	prec_star;
 	//type
 	//bonus_type
 	char	size[2]; //l ll h hh
@@ -29,6 +30,8 @@ typedef	struct		s_spec
 	char	*list_type;
 	//error
 	char	error;
+	//len final_str
+	int		len;
 }					t_spec;
 
 //main
@@ -39,6 +42,7 @@ char	*ft_check_size(char *ptr, t_spec *spec);
 //write arguments
 void	ft_write_arg(t_spec *spec);
 void	ft_write_c(t_spec *spec);
+char	*ft_strjoin_len(char const *s1, char const *s2, size_t len1, size_t len2);
 
 //treat flags
 void	ft_treat_width(t_spec *spec, int width, int minus, int zero);

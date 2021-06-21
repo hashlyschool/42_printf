@@ -15,7 +15,7 @@ SRCS_NAME = ft_printf.c ft_pars_spec.c ft_pars_spec2.c \
 SRCS		= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS_NAME:.c=.o))
 
-B_SRCS_NAME	= 
+B_SRCS_NAME	=
 
 BONUS_SRCS	= $(addprefix $(SRCS_PATH), $(B_SRCS_NAME))
 BONUS_OBJS	= $(addprefix $(OBJS_PATH), $(B_SRCS_NAME:.c=.o))

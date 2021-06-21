@@ -3,24 +3,25 @@
 void	ft_write_c(t_spec *spec)
 {
 	char	*new_str;
-	char	c[2];
+	char	c;
 
-	c[0] = (char)va_arg(spec->ap, int);
-	c[1] = 0;
+	c = (char)va_arg(spec->ap, int);
 	if (spec->minus)
 	{
-		new_str = ft_strjoin(spec->final_str, c);
+		new_str = ft_strjoin_len(spec->final_str, &c, spec->len, 1);
+		spec->len++;
 		free(spec->final_str);
 		spec->final_str = new_str;
 	}
 	ft_treat_width(spec, spec->width, 1, 0);
 	if (!spec->minus)
 	{
-		new_str = ft_strjoin(spec->final_str, c);
+		new_str = ft_strjoin_len(spec->final_str, &c, spec->len, 1);
+		spec->len++;
 		free(spec->final_str);
 		spec->final_str = new_str;
 	}
-	if (!c[0] || !new_str)
+	if (!new_str)
 		spec->error = 1;
 	return ;
 }

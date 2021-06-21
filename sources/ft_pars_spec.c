@@ -92,6 +92,11 @@ static char	*check_width(char *ptr, t_spec *spec)
 		spec->width = ft_atoi(start);
 		return (end);
 	}
+	else if (*ptr == '*')
+	{
+		spec->width_star = 1;
+		return (ptr + 1);
+	}
 	return (ptr);
 }
 
@@ -108,7 +113,7 @@ static char	*check_prec(char *ptr, t_spec *spec)
 		ptr++;
 		if (*ptr == '*')
 		{
-			spec->star = 1;
+			spec->prec_star = 1;
 			return (ptr + 1);
 		}
 		spec->prec = ft_atoi(ptr);
@@ -142,5 +147,5 @@ char		*ft_parse_spec(char *ptr, t_spec *spec)
 	ptr = check_width(ptr, spec);
 	ptr = check_prec(ptr, spec);
 	ptr = ft_check_size(ptr, spec);
-	return (ptr2 + 1);	
+	return (ptr2 + 1);
 }

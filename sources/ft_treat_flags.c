@@ -7,9 +7,10 @@ void	ft_treat_width(t_spec *spec, int width, int minus, int zero)
 	while (width - minus > 0)
 	{
 		if (zero)
-			new_str = ft_strjoin(spec->final_str, "0\0");
+			new_str = ft_strjoin_len(spec->final_str, "0\0", spec->len, 1);
 		else
-			new_str = ft_strjoin(spec->final_str, " \0");
+			new_str = ft_strjoin_len(spec->final_str, " \0", spec->len, 1);
+		spec->len++;
 		if (!new_str)
 		{
 			spec->error = 1;

@@ -2,11 +2,11 @@
 
 #include <stdio.h>
 
-static int	free_struct(t_spec *spec, int error)
+static int	free_struct(t_spec *spec)
 {
 	if (spec->final_str)
 		free(spec->final_str);
-	return (error * -1);
+	return (-1);
 }
 
 static void	init_struct(t_spec	*spec)
@@ -17,8 +17,9 @@ static void	init_struct(t_spec	*spec)
 	spec->space = 0;
 	spec->plus = 0;
 	spec->width = 0;
-	spec->star = 0;
+	spec->width_star = 0;
 	spec->prec = 0;
+	spec->prec_star = 0;
 	spec->size[0] = 0;
 	spec->size[1] = 0;
 	spec->type = 0;
@@ -27,17 +28,15 @@ static void	init_struct(t_spec	*spec)
 
 static int	print_final_str(t_spec	*spec)
 {
-	int	len;
-
 	if (spec->error)
-		return (free_struct(spec, 1));
+		return (free_struct(spec));
 	if (!spec->final_str)
-		return (free_struct(spec, 1));
-	len = ft_strlen(spec->final_str);
-	ft_putstr_fd(spec->final_str, 1);
-	free_struct(spec, 0);
-	return (len);
+		return (free_struct(spec));
+	write(1, spec->final_str, spec->len);
+	free_struct(spec);
+	return (spec->len);
 }
+
 
 static char	*find_pers(char *str, t_spec *spec)
 {
@@ -63,7 +62,8 @@ static char	*find_pers(char *str, t_spec *spec)
 		return (ptr);
 	}
 	old_str = spec->final_str;
-	new_str = ft_strjoin(spec->final_str, substr);
+	new_str = ft_strjoin_len(spec->final_str, substr, spec->len, ft_strlen(substr));
+	spec->len += ft_strlen(substr);
 	free(old_str);
 	if (!new_str)
 		spec->error = 1;
@@ -82,6 +82,7 @@ int			ft_printf(const char *str, ...)
 	if(str)
 	{
 		spec.error = 0;
+		spec.len = 0;
 		spec.list_type = "cspdiuxX%nfge";
 		spec.final_str = (char *)malloc(sizeof(char) * 1);
 		*(spec.final_str) = '\0';
