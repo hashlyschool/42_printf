@@ -41,8 +41,9 @@ char	*ft_parse_spec(char *ptr, t_spec *spec);
 char	*ft_check_size(char *ptr, t_spec *spec);
 //write arguments
 void	ft_write_arg(t_spec *spec);
-void	ft_write_c(t_spec *spec);
 char	*ft_strjoin_len(char const *s1, char const *s2, size_t len1, size_t len2);
+void	ft_write_c(t_spec *spec);
+void	ft_write_s(t_spec *spec);
 
 //treat flags
 void	ft_treat_width(t_spec *spec, int width, int minus, int zero);
