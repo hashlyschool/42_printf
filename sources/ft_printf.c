@@ -18,7 +18,7 @@ static void	init_struct(t_spec	*spec)
 	spec->plus = 0;
 	spec->width = 0;
 	spec->width_star = 0;
-	spec->prec = 0;
+	spec->prec = -1;
 	spec->prec_star = 0;
 	spec->size[0] = 0;
 	spec->size[1] = 0;

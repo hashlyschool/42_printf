@@ -8,6 +8,8 @@ void	ft_write_s(t_spec *spec)
 
 	c = va_arg(spec->ap, char*);
 	len_c = ft_strlen(c);
+	if (spec->prec >= 0 && len_c > (size_t)spec->prec)
+		len_c = spec->prec;
 	if (spec->minus)
 	{
 		new_str = ft_strjoin_len(spec->final_str, c, spec->len, len_c);
@@ -15,7 +17,7 @@ void	ft_write_s(t_spec *spec)
 		free(spec->final_str);
 		spec->final_str = new_str;
 	}
-	ft_treat_width(spec, spec->width, spec->minus, spec->zero);
+	ft_treat_width(spec, spec->width, len_c, spec->zero);
 	if (!spec->minus)
 	{
 		new_str = ft_strjoin_len(spec->final_str, c, spec->len, len_c);

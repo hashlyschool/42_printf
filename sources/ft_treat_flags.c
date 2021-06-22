@@ -1,10 +1,10 @@
 #include "../includes/ft_printf.h"
 
-void	ft_treat_width(t_spec *spec, int width, int minus, int zero)
+void	ft_treat_width(t_spec *spec, int width, int len_str, int zero)
 {
 	char	*new_str;
 
-	while (width - minus > 0)
+	while (width - len_str > 0)
 	{
 		if (zero)
 			new_str = ft_strjoin_len(spec->final_str, "0\0", spec->len, 1);

@@ -46,6 +46,6 @@ void	ft_write_c(t_spec *spec);
 void	ft_write_s(t_spec *spec);
 
 //treat flags
-void	ft_treat_width(t_spec *spec, int width, int minus, int zero);
+void	ft_treat_width(t_spec *spec, int width, int len_str, int zero);
 
 #endif

@@ -1,6 +1,6 @@
 #include "../includes/ft_printf.h"
 
-static void	check_width_star(t_spec *spec)
+static void	check_width_spec_star(t_spec *spec)
 {
 	if (spec->width_star)
 		spec->width = (int)va_arg(spec->ap, int);
@@ -9,6 +9,8 @@ static void	check_width_star(t_spec *spec)
 		spec->minus = 1;
 		spec->width *= -1;
 	}
+	if (spec->prec_star)
+		spec->prec = (int)va_arg(spec->ap, int);
 	return ;
 }
 
@@ -42,7 +44,7 @@ char	*ft_strjoin_len(char const *s1, char const *s2, size_t len1, size_t len2)
 
 void		ft_write_arg(t_spec *spec)
 {
-	check_width_star(spec);
+	check_width_spec_star(spec);
 	if (spec->type == 'c')
 		ft_write_c(spec);
 	else if (spec->type == 's')

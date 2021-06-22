@@ -1,7 +1,7 @@
 #include "includes/ft_printf.h"
 
 #include <stdio.h>
-#define MY_TEST " %1s %1s ", "123", "4567"
+#define MY_TEST "%*.0s %.2s ", 10, "123", "4567"
 
 int	main()
 {
