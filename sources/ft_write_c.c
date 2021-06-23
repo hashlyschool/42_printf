@@ -2,26 +2,15 @@
 
 void	ft_write_c(t_spec *spec)
 {
-	char	*new_str;
 	char	c;
+	char	count_treat_minus;
 
+	count_treat_minus = 0;
 	c = (char)va_arg(spec->ap, int);
-	if (spec->minus)
-	{
-		new_str = ft_strjoin_len(spec->final_str, &c, spec->len, 1);
-		spec->len++;
-		free(spec->final_str);
-		spec->final_str = new_str;
-	}
+	count_treat_minus += ft_treat_minus(spec, 0, &c, 1);
 	ft_treat_width(spec, spec->width, 1, 0);
-	if (!spec->minus)
-	{
-		new_str = ft_strjoin_len(spec->final_str, &c, spec->len, 1);
-		spec->len++;
-		free(spec->final_str);
-		spec->final_str = new_str;
-	}
-	if (!new_str)
+	count_treat_minus += ft_treat_minus(spec, 1, &c, 1);
+	if (count_treat_minus == 0)
 		spec->error = 1;
 	return ;
 }

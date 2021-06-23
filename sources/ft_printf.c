@@ -2,14 +2,14 @@
 
 #include <stdio.h>
 
-static int	free_struct(t_spec *spec)
+static int	ft_free_struct(t_spec *spec)
 {
 	if (spec->final_str)
 		free(spec->final_str);
 	return (-1);
 }
 
-static void	init_struct(t_spec	*spec)
+static void	ft_init_struct(t_spec	*spec)
 {
 	spec->minus = 0;
 	spec->zero = 0;
@@ -23,23 +23,21 @@ static void	init_struct(t_spec	*spec)
 	spec->size[0] = 0;
 	spec->size[1] = 0;
 	spec->type = 0;
+	spec->list_type = "cspdiuxX%nfge";
 	return ;
 }
 
 static int	print_final_str(t_spec	*spec)
 {
 	if (spec->error)
-		return (free_struct(spec));
+		return (ft_free_struct(spec));
 	if (!spec->final_str)
-		return (free_struct(spec));
+		return (ft_free_struct(spec));
 	write(1, spec->final_str, spec->len);
-	free_struct(spec);
+	ft_free_struct(spec);
 	return (spec->len);
 }
 
-
-static char	*find_pers(char *str, t_spec *spec)
-{
 	/*
 		принимает указатель на начало, либо символ после %
 		записывает ошибку в случае нужды
@@ -47,50 +45,51 @@ static char	*find_pers(char *str, t_spec *spec)
 		возвращает указатель на %+1 в исходной строке
 		или конец файла
 	*/
+
+static char	*find_pers(char *str, t_spec *spec)
+{
 	char	*ptr;
-	char	*substr;
+	char	*str1;
 	char	*new_str;
 	char	*old_str;
 
 	ptr = str;
 	while (*ptr && (*ptr) != '%')
 		ptr++;
-	substr = ft_substr(str, 0, ptr - str);
-	if (!substr)
+	str1 = ft_substr(str, 0, ptr - str);
+	if (!str1)
 	{
 		spec->error = 1;
 		return (ptr);
 	}
 	old_str = spec->final_str;
-	new_str = ft_strjoin_len(spec->final_str, substr, spec->len, ft_strlen(substr));
-	spec->len += ft_strlen(substr);
+	new_str = ft_strjoin_len(spec->final_str, str1, spec->len, ft_strlen(str1));
+	spec->len += ft_strlen(str1);
 	free(old_str);
 	if (!new_str)
 		spec->error = 1;
 	spec->final_str = new_str;
-	free(substr);
+	free(str1);
 	if (*ptr == '%')
 		ptr++;
 	return (ptr);
 }
 
-int			ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
 	t_spec	spec;
 	char	*ptr;
 
-	if(str)
+	if (str)
 	{
 		spec.error = 0;
 		spec.len = 0;
-		spec.list_type = "cspdiuxX%nfge";
 		spec.final_str = (char *)malloc(sizeof(char) * 1);
-		*(spec.final_str) = '\0';
 		va_start(spec.ap, str);
 		ptr = (char *)str;
-		while(*ptr && !spec.error)
+		while (*ptr && !spec.error)
 		{
-			init_struct(&spec);
+			ft_init_struct(&spec);
 			ptr = find_pers(ptr, &spec);
 			if (*(ptr - 1) == '%')
 			{
@@ -102,5 +101,5 @@ int			ft_printf(const char *str, ...)
 		va_end(spec.ap);
 		return (print_final_str(&spec));
 	}
-	return(-1);
+	return (-1);
 }

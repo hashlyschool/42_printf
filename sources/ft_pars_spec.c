@@ -1,13 +1,14 @@
 #include "../includes/ft_printf.h"
 
+/*
+	ptr - pointer to %+1
+	Прогоняет до обязательного типа и выставляет его в структуру
+	Если не нашел, то вызывает ошибку
+	возвращает указатель на символ type
+*/
+
 static char	*check_type(char *ptr, t_spec *spec)
 {
-	/*
-		ptr - pointer to %+1
-		Прогоняет до обязательного типа и выставляет его в структуру
-		Если не нашел, то вызывает ошибку
-		возвращает указатель на символ type
-	*/
 	char	chr;
 	char	i;
 	char	*ptr2;
@@ -27,59 +28,46 @@ static char	*check_type(char *ptr, t_spec *spec)
 	return (ptr2);
 }
 
-static char	*check_flags(char *ptr, char *ptr2, t_spec *spec)
+/*
+	Ищет флаги
+	Если находит возвращает указатель на последний флаг + 1
+	Иначе возвращает ptr - знак после %
+*/
+
+static char	*check_flags(char *ptr, char *ptr2, t_spec *spec, const char *l_fl)
 {
-	/*
-		Ищет флаги
-		Если находит возвращает указатель на последний флаг + 1
-		Иначе возвращает ptr - знак после %
-	*/
 	char	*end_flags;
+	char	*flag;
 
 	end_flags = ptr;
 	while (ptr < ptr2 && *ptr != '.')
 	{
+		flag = NULL;
 		if (*ptr > '0' && *ptr <= '9')
 			return (end_flags);
-		if (*ptr == '-')
+		flag = ft_strchr(l_fl, *ptr);
+		if (flag)
 		{
-			spec->minus = 1;
 			end_flags = ptr + 1;
-		}
-		if (*ptr == '0')
-		{
-			spec->zero = 1;
-			end_flags = ptr + 1;
-		}
-		if (*ptr == '#')
-		{
-			spec->okto = 1;
-			end_flags = ptr + 1;
-		}
-		if (*ptr == ' ')
-		{
-			spec->space = 1;
-			end_flags = ptr + 1;
-		}
-		if (*ptr == '+')
-		{
-			spec->plus = 1;
-			end_flags = ptr + 1;
+			ft_set_flag(*flag, spec);
 		}
 		ptr++;
 	}
+	if (*ptr == '.')
+		spec->prec = 0;
 	return (end_flags);
 }
 
+/*
+	ptr - указатель на символ после флага
+	или после %, если флагов нет
+	Ищет ширину и записывает её в spec, если не нашел записывает 0
+	возвращает указатель на последний символ ширины + 1
+	если ширины нет, то возвращвет ptr
+*/
+
 static char	*check_width(char *ptr, t_spec *spec)
 {
-	/*
-		ptr - указатель на символ после флага
-		или после %, если флагов нет
-		Ищет ширину и записывает её в spec, если не нашел записывает 0
-		возвращает указатель на последний символ ширины + 1
-		если ширины нет, то возвращвет ptr
-	*/
 	char	*start;
 	char	*end;
 
@@ -100,14 +88,14 @@ static char	*check_width(char *ptr, t_spec *spec)
 	return (ptr);
 }
 
+/*
+	ptr указатель на точку или нет.
+	возвращает указатель на след символ после точности
+	Если точности нет то возвращает ptr
+*/
+
 static char	*check_prec(char *ptr, t_spec *spec)
 {
-	/*
-		ptr указатель на точку или нет.
-
-		возвращает указатель на след символ после точности
-		Если точности нет то возвращает ptr
-	*/
 	if (*ptr == '.')
 	{
 		ptr++;
@@ -124,16 +112,15 @@ static char	*check_prec(char *ptr, t_spec *spec)
 	return (ptr);
 }
 
+/*
+	ptr - указатель на символ после %
+	проверяет на /0 and error, парсит спецификатор
+	записывает в spec параметры
+	возвращает указатель на конец спецификатора + 1
+*/
 
-
-char		*ft_parse_spec(char *ptr, t_spec *spec)
+char	*ft_parse_spec(char *ptr, t_spec *spec)
 {
-	/*
-		ptr - указатель на символ после %
-		проверяет на /0 and error, парсит спецификатор
-		записывает в spec параметры
-		возвращает указатель на конец спецификатора + 1
-	*/
 	char	*ptr2;
 
 	if (!(*ptr) || spec->error)
@@ -143,7 +130,7 @@ char		*ft_parse_spec(char *ptr, t_spec *spec)
 		return (ptr2 + 1);
 	if (spec->error)
 		return (ptr2);
-	ptr = check_flags(ptr, ptr2, spec);
+	ptr = check_flags(ptr, ptr2, spec, "-0# +");
 	ptr = check_width(ptr, spec);
 	ptr = check_prec(ptr, spec);
 	ptr = ft_check_size(ptr, spec);

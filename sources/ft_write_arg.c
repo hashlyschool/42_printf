@@ -14,7 +14,7 @@ static void	check_width_spec_star(t_spec *spec)
 	return ;
 }
 
-char	*ft_strjoin_len(char const *s1, char const *s2, size_t len1, size_t len2)
+char	*ft_strjoin_len(char *s1, char *s2, size_t len1, size_t len2)
 {
 	char	*ptr;
 	char	*start;
@@ -36,13 +36,13 @@ char	*ft_strjoin_len(char const *s1, char const *s2, size_t len1, size_t len2)
 }
 
 /*
-		spec содержит аргумент и флаги
-		Обрабатывает аргумент в зависимости от спецификатора
-		записывает в финальную строку
-		записывает ошибку в случае нужды
-	*/
+	spec содержит аргумент и флаги
+	Обрабатывает аргумент в зависимости от спецификатора
+	записывает в финальную строку
+	записывает ошибку в случае нужды
+*/
 
-void		ft_write_arg(t_spec *spec)
+void	ft_write_arg(t_spec *spec)
 {
 	check_width_spec_star(spec);
 	if (spec->type == 'c')
@@ -51,11 +51,12 @@ void		ft_write_arg(t_spec *spec)
 		ft_write_s(spec);
 	else if (spec->type == 'p')
 		ft_write_p(spec);
+	else if (spec->type == 'd' || spec->type == 'i')
+		ft_write_d_i(spec);
+	return ;
+}
+
 	/*
-	else if (spec->type == 'd')
-		ft_write_d(spec);
-	else if (spec->type == 'i')
-		ft_write_i(spec);
 	else if (spec->type == 'u')
 		ft_write_u(spec);
 	else if (spec->type == 'x')
@@ -64,5 +65,3 @@ void		ft_write_arg(t_spec *spec)
 		ft_write_X(spec);
 	else if (spec->type == '%')
 		ft_write_perc(spec);*/
-	return ;
-}
