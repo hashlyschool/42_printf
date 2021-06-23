@@ -11,7 +11,7 @@ OBJS_PATH	= ./objs/
 
 SRCS_NAME = ft_printf.c ft_pars_spec.c ft_pars_spec2.c \
 			ft_treat_flags.c ft_write_arg.c ft_write_c.c \
-			ft_write_s.c
+			ft_write_s.c ft_write_p.c
 
 SRCS		= $(addprefix $(SRCS_PATH), $(SRCS_NAME))
 OBJS		= $(addprefix $(OBJS_PATH), $(SRCS_NAME:.c=.o))

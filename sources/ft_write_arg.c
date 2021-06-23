@@ -49,8 +49,9 @@ void		ft_write_arg(t_spec *spec)
 		ft_write_c(spec);
 	else if (spec->type == 's')
 		ft_write_s(spec);
-	/*else if (spec->type == 'p')
+	else if (spec->type == 'p')
 		ft_write_p(spec);
+	/*
 	else if (spec->type == 'd')
 		ft_write_d(spec);
 	else if (spec->type == 'i')
