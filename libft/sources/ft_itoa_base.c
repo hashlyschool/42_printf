@@ -25,7 +25,7 @@ static int	ft_find_size_num(int value, int base)
 static int	ft_find_size_num_u(unsigned long long value, int base)
 {
 	unsigned long long	tmp;
-	int	size;
+	int					size;
 
 	tmp = value;
 	size = 0;
@@ -71,6 +71,8 @@ char	*ft_itoa_base_u(unsigned long long value, int base)
 	int		size;
 	char	*tab;
 
+	if (value == 0)
+		return (ft_strdup("0"));
 	size = 0;
 	tab = "0123456789abcdef";
 	if (base < 2 || base > 16)

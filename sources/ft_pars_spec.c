@@ -55,6 +55,10 @@ static char	*check_flags(char *ptr, char *ptr2, t_spec *spec, const char *l_fl)
 	}
 	if (*ptr == '.')
 		spec->prec = 0;
+	if (spec->minus)
+		spec->zero = 0;
+	if (spec->prec != -1 && ft_strchr("diouxX", spec->type))
+		spec->zero = 0;
 	return (end_flags);
 }
 
@@ -107,6 +111,8 @@ static char	*check_prec(char *ptr, t_spec *spec)
 		spec->prec = ft_atoi(ptr);
 		while (*ptr >= '0' && *ptr <= '9')
 			ptr++;
+		if (spec->prec != -1 && ft_strchr("diouxX", spec->type))
+			spec->zero = 0;
 		return (ptr + 1);
 	}
 	return (ptr);

@@ -4,13 +4,21 @@ static void	check_width_spec_star(t_spec *spec)
 {
 	if (spec->width_star)
 		spec->width = (int)va_arg(spec->ap, int);
+	if (spec->prec_star)
+	{
+		spec->prec = (int)va_arg(spec->ap, int);
+		if (spec->prec < 0)
+			spec->prec = -1;
+		if (spec->prec != -1 && ft_strchr("diouxX", spec->type))
+			spec->zero = 0;
+	}
 	if (spec->width < 0)
 	{
 		spec->minus = 1;
+		if (spec->zero)
+			spec->zero = 0;
 		spec->width *= -1;
 	}
-	if (spec->prec_star)
-		spec->prec = (int)va_arg(spec->ap, int);
 	return ;
 }
 
