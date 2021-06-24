@@ -65,16 +65,14 @@ char	*ft_itoa_base(int value, int base)
 	return (str);
 }
 
-char	*ft_itoa_base_u(unsigned long long value, int base)
+char	*ft_itoa_base_u(unsigned long long value, int base, const char *tab)
 {
 	char	*str;
 	int		size;
-	char	*tab;
 
 	if (value == 0)
 		return (ft_strdup("0"));
 	size = 0;
-	tab = "0123456789abcdef";
 	if (base < 2 || base > 16)
 		return (NULL);
 	size = ft_find_size_num_u(value, base);

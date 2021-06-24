@@ -63,13 +63,9 @@ void	ft_write_arg(t_spec *spec)
 		ft_write_d_i(spec);
 	else if (spec->type == 'u')
 		ft_write_u(spec);
-	return ;
-}
-
-	/*
 	else if (spec->type == 'x')
 		ft_write_x(spec);
 	else if (spec->type == 'X')
 		ft_write_X(spec);
-	else if (spec->type == '%')
-		ft_write_perc(spec);*/
+	return ;
+}

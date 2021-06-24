@@ -41,7 +41,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_itoa_base(int value, int base);
-char	*ft_itoa_base_u(unsigned long long value, int base);
+char	*ft_itoa_base_u(unsigned long long value, int base, const char *tab);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

@@ -36,6 +36,9 @@ void	ft_write_s(t_spec *spec);
 void	ft_write_p(t_spec *spec);
 void	ft_write_d_i(t_spec *spec);
 void	ft_write_u(t_spec *spec);
+void	ft_write_x(t_spec *spec);
+void	ft_write_X(t_spec *spec);
+void	ft_write_pers(t_spec *spec);
 /*secondary functions*/
 char	*ft_strjoin_len(char *s1, char *s2, size_t len1, size_t len2);
 void	ft_set_flag(char flag, t_spec *spec);

@@ -93,9 +93,14 @@ int	ft_printf(const char *str, ...)
 			ptr = find_pers(ptr, &spec);
 			if (*(ptr - 1) == '%')
 			{
-				ptr = ft_parse_spec(ptr, &spec);
-				if (!spec.error)
-					ft_write_arg(&spec);
+				if (*ptr == '%')
+					ft_write_pers(&spec);
+				else
+				{
+					ptr = ft_parse_spec(ptr, &spec);
+					if (!spec.error && spec.type)
+						ft_write_arg(&spec);
+				}
 			}
 		}
 		va_end(spec.ap);

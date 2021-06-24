@@ -22,7 +22,7 @@ static char	*ft_treat_prec(int prec, char **str, int str_len)
 	return (*str);
 }
 
-void	ft_write_u(t_spec *spec)
+void	ft_write_x(t_spec *spec)
 {
 	unsigned int	nbr;
 	char			*nbr_str;
@@ -31,7 +31,7 @@ void	ft_write_u(t_spec *spec)
 
 	count_treat_minus = 0;
 	nbr = va_arg(spec->ap, unsigned int);
-	nbr_str = ft_itoa_base_u(nbr, 10, "0123456789");
+	nbr_str = ft_itoa_base_u(nbr, 16, "0123456789abcdef");
 	if (spec->prec != -1)
 		nbr_str = ft_treat_prec(spec->prec, &nbr_str, (int)ft_strlen(nbr_str));
 	len_str_nbr = ft_strlen(nbr_str);

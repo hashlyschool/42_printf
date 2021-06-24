@@ -18,7 +18,7 @@ static char	*ft_itoa_base_ptr(unsigned long long value)
 
 	if (value)
 	{
-		str_value = ft_itoa_base_u(value, 16);
+		str_value = ft_itoa_base_u(value, 16, "0123456789abcdef");
 		str = ft_strjoin("0x", str_value);
 		free(str_value);
 	}

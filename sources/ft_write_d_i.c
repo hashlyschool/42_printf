@@ -72,7 +72,7 @@ void	ft_write_d_i(t_spec *spec)
 	nbr = va_arg(spec->ap, int);
 	nbr = ft_abs_nbr(spec, nbr, &flag);
 	ft_add_minus(spec, flag, 0);
-	nbr_str = ft_itoa_base_u(nbr, 10);
+	nbr_str = ft_itoa_base_u(nbr, 10, "0123456789");
 	if (spec->prec != -1)
 		nbr_str = ft_treat_prec(spec->prec, &nbr_str, (int)ft_strlen(nbr_str));
 	len_str_nbr = ft_strlen(nbr_str);
