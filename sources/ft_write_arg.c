@@ -61,12 +61,12 @@ void	ft_write_arg(t_spec *spec)
 		ft_write_p(spec);
 	else if (spec->type == 'd' || spec->type == 'i')
 		ft_write_d_i(spec);
+	else if (spec->type == 'u')
+		ft_write_u(spec);
 	return ;
 }
 
 	/*
-	else if (spec->type == 'u')
-		ft_write_u(spec);
 	else if (spec->type == 'x')
 		ft_write_x(spec);
 	else if (spec->type == 'X')

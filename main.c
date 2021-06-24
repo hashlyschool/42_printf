@@ -8,7 +8,7 @@
 #define UINT_MAX  (__INT_MAX__  *2U +1U)
 #define ULONG_MAX (__LONG_MAX__ *2UL+1UL)
 
-#define MY_TEST " --0*%0*.0d*0 0*%0*.10d*0-- ", -21, INT_MAX, 21, INT_MIN
+#define MY_TEST " %-3.2u %10.42u ", 1, -1
 int	main()
 {
 	setvbuf(stdout, NULL, _IONBF, 0);
