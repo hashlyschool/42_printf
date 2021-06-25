@@ -4,4 +4,5 @@ a.out
 .*
 printfTester
 ft_printf_test
-test
+testpft/
+pft

@@ -51,7 +51,7 @@ char	*ft_strjoin_len(char *s1, char *s2, size_t len1, size_t len2)
 */
 
 void	ft_write_arg(t_spec *spec)
-{
+{	
 	check_width_spec_star(spec);
 	if (spec->type == 'c')
 		ft_write_c(spec);
@@ -67,5 +67,7 @@ void	ft_write_arg(t_spec *spec)
 		ft_write_x(spec);
 	else if (spec->type == 'X')
 		ft_write_X(spec);
+	else if (spec->type == '%')
+		ft_write_pers(spec);
 	return ;
 }

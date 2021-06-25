@@ -8,7 +8,7 @@ void	ft_write_pers(t_spec *spec)
 	count_treat_minus = 0;
 	c = '%';
 	count_treat_minus += ft_treat_minus(spec, 0, &c, 1);
-	ft_treat_width(spec, spec->width, 1, 0);
+	ft_treat_width(spec, 1, 1, spec->zero);
 	count_treat_minus += ft_treat_minus(spec, 1, &c, 1);
 	if (count_treat_minus == 0)
 		spec->error = 1;

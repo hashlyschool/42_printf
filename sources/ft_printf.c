@@ -84,7 +84,7 @@ int	ft_printf(const char *str, ...)
 	{
 		spec.error = 0;
 		spec.len = 0;
-		spec.final_str = (char *)malloc(sizeof(char) * 1);
+		spec.final_str = ft_calloc(1, sizeof(char));
 		va_start(spec.ap, str);
 		ptr = (char *)str;
 		while (*ptr && !spec.error)
@@ -93,14 +93,9 @@ int	ft_printf(const char *str, ...)
 			ptr = find_pers(ptr, &spec);
 			if (*(ptr - 1) == '%')
 			{
-				if (*ptr == '%')
-					ft_write_pers(&spec);
-				else
-				{
-					ptr = ft_parse_spec(ptr, &spec);
-					if (!spec.error && spec.type)
-						ft_write_arg(&spec);
-				}
+				ptr = ft_parse_spec(ptr, &spec);
+				if (!spec.error && spec.type)
+					ft_write_arg(&spec);
 			}
 		}
 		va_end(spec.ap);

@@ -12,20 +12,27 @@ static char	*check_type(char *ptr, t_spec *spec)
 	char	chr;
 	char	i;
 	char	*ptr2;
+	char	*ptr_final;
 
 	i = -1;
+	ptr_final = 0;
 	while (*(spec->list_type + ++i))
 	{
 		chr = *(spec->list_type + i);
 		ptr2 = ft_strchr(ptr, chr);
-		if (ptr2)
-		{
-			spec->type = *ptr2;
-			return (ptr2);
-		}
+		if (!ptr_final && ptr2)
+			ptr_final = ptr2;
+		if (ptr2 && ptr2 <= ptr_final)
+			ptr_final = ptr2;
 	}
-	spec->error = 1;
-	return (ptr2);
+	if (ptr_final)
+		spec->type = *ptr_final;
+	else
+	{
+		spec->error = 1;
+		return (ptr2);
+	}
+	return (ptr_final);
 }
 
 /*
@@ -120,7 +127,7 @@ static char	*check_prec(char *ptr, t_spec *spec)
 
 /*
 	ptr - указатель на символ после %
-	проверяет на /0 and error, парсит спецификатор
+	проверяет на /0, % and error, парсит спецификатор
 	записывает в spec параметры
 	возвращает указатель на конец спецификатора + 1
 */
@@ -131,6 +138,11 @@ char	*ft_parse_spec(char *ptr, t_spec *spec)
 
 	if (!(*ptr) || spec->error)
 		return (ptr);
+	if (*ptr == '%')
+	{
+		spec->type = '%';
+		return (ptr + 1);
+	}
 	ptr2 = check_type(ptr, spec);
 	if (ptr2 == ptr)
 		return (ptr2 + 1);

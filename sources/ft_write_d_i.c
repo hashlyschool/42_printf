@@ -22,7 +22,7 @@ static char	*ft_treat_prec(int prec, char **str, int str_len)
 	return (*str);
 }
 
-static void	ft_add_minus(t_spec *spec, char nbr_is_negativ, char mode)
+static void	ft_add_minus_space(t_spec *spec, char nbr_is_negativ, char mode)
 {
 	char	*tmp;
 	char	flag;
@@ -34,10 +34,19 @@ static void	ft_add_minus(t_spec *spec, char nbr_is_negativ, char mode)
 		flag = 1;
 	else if (spec->minus == 0 && spec->zero == 0 && mode == 1)
 		flag = 1;
+	if (spec->space && !nbr_is_negativ)
+		spec->width--;
 	if (nbr_is_negativ && flag)
 	{
 		tmp = spec->final_str;
 		spec->final_str = ft_strjoin_len(spec->final_str, "-", spec->len, 1);
+		spec->len++;
+		free(tmp);
+	}
+	else if (spec->space && flag)
+	{
+		tmp = spec->final_str;
+		spec->final_str = ft_strjoin_len(spec->final_str, " ", spec->len, 1);
 		spec->len++;
 		free(tmp);
 	}
@@ -71,14 +80,14 @@ void	ft_write_d_i(t_spec *spec)
 	count_treat_minus = 0;
 	nbr = va_arg(spec->ap, int);
 	nbr = ft_abs_nbr(spec, nbr, &flag);
-	ft_add_minus(spec, flag, 0);
+	ft_add_minus_space(spec, flag, 0);
 	nbr_str = ft_itoa_base_u(nbr, 10, "0123456789");
 	if (spec->prec != -1)
 		nbr_str = ft_treat_prec(spec->prec, &nbr_str, (int)ft_strlen(nbr_str));
 	len_str_nbr = ft_strlen(nbr_str);
 	count_treat_minus += ft_treat_minus(spec, 0, nbr_str, len_str_nbr);
 	ft_treat_width(spec, spec->width, len_str_nbr, spec->zero);
-	ft_add_minus(spec, flag, 1);
+	ft_add_minus_space(spec, flag, 1);
 	count_treat_minus += ft_treat_minus(spec, 1, nbr_str, len_str_nbr);
 	free(nbr_str);
 	if (count_treat_minus == 0)

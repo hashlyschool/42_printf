@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define MY_TEST "%%%s%c%%c", "", 0
+#define MY_TEST "% 7d", 33
+
 int	main()
 {
 	setvbuf(stdout, NULL, _IONBF, 0);
