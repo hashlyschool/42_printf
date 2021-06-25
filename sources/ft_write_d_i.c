@@ -1,5 +1,16 @@
 #include "../includes/ft_printf.h"
 
+static void	ft_strjoin_free(t_spec	*spec, char *str, size_t len_str)
+{
+	char	*tmp;
+
+	tmp = spec->final_str;
+	spec->final_str = ft_strjoin_len(spec->final_str, str, spec->len, len_str);
+	spec->len++;
+	free(tmp);
+	return ;
+}
+
 static char	*ft_treat_prec(int prec, char **str, int str_len)
 {
 	char	*tmp;
@@ -24,8 +35,8 @@ static char	*ft_treat_prec(int prec, char **str, int str_len)
 
 static void	ft_add_minus_space(t_spec *spec, char nbr_is_negativ, char mode)
 {
-	char	*tmp;
 	char	flag;
+	char	minus_plus;
 
 	flag = 0;
 	if (spec->minus == 1 && spec->zero == 0 && mode == 0)
@@ -34,22 +45,20 @@ static void	ft_add_minus_space(t_spec *spec, char nbr_is_negativ, char mode)
 		flag = 1;
 	else if (spec->minus == 0 && spec->zero == 0 && mode == 1)
 		flag = 1;
+	if (spec->plus && !nbr_is_negativ)
+	{
+		minus_plus = '+';
+		nbr_is_negativ = 1;
+		spec->width--;
+	}
+	else
+		minus_plus = '-';
 	if (spec->space && !nbr_is_negativ)
 		spec->width--;
 	if (nbr_is_negativ && flag)
-	{
-		tmp = spec->final_str;
-		spec->final_str = ft_strjoin_len(spec->final_str, "-", spec->len, 1);
-		spec->len++;
-		free(tmp);
-	}
+		ft_strjoin_free(spec, &minus_plus, 1);
 	else if (spec->space && flag)
-	{
-		tmp = spec->final_str;
-		spec->final_str = ft_strjoin_len(spec->final_str, " ", spec->len, 1);
-		spec->len++;
-		free(tmp);
-	}
+		ft_strjoin_free(spec, " ", 1);
 	return ;
 }
 
