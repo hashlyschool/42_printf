@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define MY_TEST "%#.5x", 21
+#define MY_TEST " %#-03x ", 1
 
 int	main()
 {
