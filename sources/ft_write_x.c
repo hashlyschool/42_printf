@@ -39,11 +39,11 @@ static char	*ft_strjoin_free(char *pref, char *str)
 	return (str);
 }
 
-static void	ft_treat_okto(t_spec *spec, int len_str_nbr, unsigned int nbr)
+static void	ft_treat_okto(t_spec *spec, int len_str_nbr, unsigned int nbr, char mode)
 {
 	char	*tmp;
 
-	if (spec->okto)
+	if (spec->okto && mode + spec->minus == 1)
 	{
 		if (nbr && spec->width - len_str_nbr > -2 && spec->zero)
 		{
@@ -75,8 +75,9 @@ void	ft_write_x(t_spec *spec)
 	else if (spec->okto && nbr && !(spec->width - (int)ft_strlen(nbr_str) > -2 && spec->zero))
 		nbr_str = ft_strjoin_free("0x", nbr_str);
 	len_str_nbr = ft_strlen(nbr_str);
+	ft_treat_okto(spec, len_str_nbr, nbr, 0);
 	count_treat_minus += ft_treat_minus(spec, 0, nbr_str, len_str_nbr);
-	ft_treat_okto(spec, len_str_nbr, nbr);
+	ft_treat_okto(spec, len_str_nbr, nbr, 1);
 	ft_treat_width(spec, spec->width, len_str_nbr, spec->zero);
 	count_treat_minus += ft_treat_minus(spec, 1, nbr_str, len_str_nbr);
 	free(nbr_str);
